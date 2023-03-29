@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 import JoblyApi from "./api"
-import Company from "./Company"
+import SearchBar from "./SearchBar";
+// import Company from "./Company"
 
 function CompanyList() {
     const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState([]);
 
-    async function fetchData() {
+    async function fetchData(query = undefined) {
         setIsLoading(true);
         async function getCompanies() {
-            let companies = await JoblyApi.getCompanies();
+            let companies = await JoblyApi.getCompanies(query);
+            console.log(companies)
             setCompanies(companies);
             setIsLoading(false);
         };
@@ -27,8 +29,9 @@ function CompanyList() {
 
     return (
         <div>
+            <SearchBar fetchData={fetchData} />
             {companies.map(company => (
-                <Company>{company}</Company>
+                <p key={company.handle}>{company.name}</p>
             ))}
         </div>
     )
