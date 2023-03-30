@@ -1,51 +1,51 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 
 import CompanyList from "./CompanyList"
 import Company from "./Company"
 import JobList from "./JobList"
 import Job from "./Job"
 import Login from "./Login"
+import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm"
 import Profile from "./Profile"
 import Home from "./Home"
-import NavBar from "./NavBar";
 
 
-function Routes() {
+function Routes({ loginUser, logoutUser, registerUser }) {
     return (
-        <div>
-            <BrowserRouter>
-                <NavBar />
-                <Switch>
-                    <Route exact path="/companies">
-                        <CompanyList />
-                    </Route>
-                    <Route path="/companies/:company">
-                        <Company />
-                    </Route>
-                    <Route exact path="/jobs">
-                        <JobList />
-                    </Route>
-                    <Route path="/jobs/:job">
-                        <Job />
-                    </Route>
-                    <Route exact path="/login">
-                        <Login />
-                    </Route>
-                    <Route exact path="/signup">
-                        <SignupForm />
-                    </Route>
-                    <Route path="/profile">
-                        <Profile />
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
-
-            </BrowserRouter>
-        </div>
+        <Switch>
+            <Route exact path="/companies">
+                <CompanyList />
+            </Route>
+            <Route path="/companies/:company">
+                <Company />
+            </Route>
+            <Route exact path="/jobs">
+                <JobList />
+            </Route>
+            <Route path="/jobs/:job">
+                <Job />
+            </Route>
+            <Route path="/login/form">
+                <LoginForm loginUser={loginUser} />
+            </Route>
+            <Route path="/login">
+                <Login />
+            </Route>
+            <Route exact path="/signup">
+                <SignupForm registerUser={registerUser} />
+            </Route>
+            <Route path="/profile">
+                <Profile />
+            </Route>
+            <Route exact path="/logout">
+            </Route>
+            <Route path="/">
+                <Home />
+            </Route>
+            <Redirect to="/" />
+        </Switch>
     )
 }
 
