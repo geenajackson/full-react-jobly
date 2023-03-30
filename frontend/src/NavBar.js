@@ -7,19 +7,19 @@ function NavBar() {
             <NavLink exact to="/">
                 Jobly
             </NavLink>
-            <NavLink to="/companies">
+            <NavLink exact to="/companies">
                 Companies
             </NavLink>
-            <NavLink to="/jobs">
+            <NavLink exact to="/jobs">
                 Jobs
             </NavLink>
-            <NavLink to="/profile">
+            <NavLink exact to="/profile">
                 Profile
             </NavLink>
-            <NavLink to="/login">
+            <NavLink exact to="/login">
                 Login
             </NavLink>
-            <NavLink to="/signup">
+            <NavLink exact to="/signup">
                 Sign Up
             </NavLink>
         </div>
