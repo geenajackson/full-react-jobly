@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import JoblyApi from "./api"
 import SearchBar from "./SearchBar";
-// import Company from "./Company"
+import Company from "./Company"
 
 function CompanyList() {
     const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +12,6 @@ function CompanyList() {
         setIsLoading(true);
         async function getCompanies() {
             let companies = await JoblyApi.getCompanies(query);
-            console.log(companies)
             setCompanies(companies);
             setIsLoading(false);
         };
@@ -31,7 +30,13 @@ function CompanyList() {
         <div>
             <SearchBar fetchData={fetchData} />
             {companies.map(company => (
-                <p key={company.handle}>{company.name}</p>
+                <Company
+                    key={company.handle}
+                    name={company.name}
+                    description={company.description}
+                    numEmployees={company.numEmployees}
+                    logoUrl={company.logoUrl}
+                ></Company>
             ))}
         </div>
     )
