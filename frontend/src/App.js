@@ -3,22 +3,37 @@ import Routes from "./Routes"
 import './App.css';
 
 import UserContext from "./userContext";
+import TokenContext from "./tokenContext";
+import Login from "./Login";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
 
 
 function App() {
   const [user, setUser] = useState("");
+  const [token, setToken] = useState(null);
 
   async function loginUser(login) {
-    let token = await JoblyApi.getToken(login);
-    console.log(token)
-    setUser(token);
+    try {
+      let res = await JoblyApi.getToken(login);
+      setToken(res);
+      setUser(login);
+    }
+    catch (e) {
+      return e;
+    }
+
   }
 
   async function registerUser(login) {
-    let token = await JoblyApi.register(login);
-    setUser(token);
+    try {
+      let res = await JoblyApi.register(login);
+      setToken(res);
+      setUser(login);
+    }
+    catch (e) {
+      return e;
+    }
   }
 
   function logoutUser() {
@@ -26,14 +41,15 @@ function App() {
     setUser(null);
   }
 
-  let userToken = JoblyApi.token;
-
   return (
     <div className="App">
-      <p>hi! {userToken}</p>
+      {user ? <p>Hello, {user.username}!</p> :
+        <Login />}
       <UserContext.Provider value={user}>
-        <NavBar />
-        <Routes loginUser={loginUser} logoutUser={logoutUser} registerUser={registerUser} />
+        <TokenContext.Provider value={token}>
+          <NavBar />
+          <Routes loginUser={loginUser} logoutUser={logoutUser} registerUser={registerUser} />
+        </TokenContext.Provider>
       </UserContext.Provider>
     </div>
   );
