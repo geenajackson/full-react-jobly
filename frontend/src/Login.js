@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 function Login() {
     return (
         <div>
-            <Link to="/login/form">Login!</Link>
-            <Link to="/signup">Sign Up!</Link>
+            <p>Signup or Login to utilize Jobly!</p>
+            <Link to="/login/form">Login</Link>
+            <Link to="/signup">Sign Up</Link>
         </div>
     )
 }
