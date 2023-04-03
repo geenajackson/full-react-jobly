@@ -10,6 +10,7 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm"
 import Profile from "./Profile"
 import Home from "./Home"
+import Logout from "./Logout";
 
 
 function Routes({ loginUser, logoutUser, registerUser }) {
@@ -40,6 +41,7 @@ function Routes({ loginUser, logoutUser, registerUser }) {
                 <Profile />
             </Route>
             <Route exact path="/logout">
+                <Logout logoutUser={logoutUser} />
             </Route>
             <Route path="/">
                 <Home />
