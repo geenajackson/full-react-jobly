@@ -3,12 +3,12 @@ import React, { useContext } from "react";
 import UserContext from "./userContext";
 
 function Profile() {
-    const { user } = useContext(UserContext)
-    console.log(user)
+    //no need to destructure with useContext
+    const user = useContext(UserContext);
     return (
         <div>
             <h1>Hello!</h1>
-            <p>{user}</p>
+            <p>{user.username}</p>
         </div>
     )
 }
