@@ -70,17 +70,24 @@ class JoblyApi {
       email: user.email
     }, "post");
     console.log(res)
-    return res.token;
+    return res;
   }
   //user is username, password
   static async getToken(user) {
     let res = await this.request(`auth/token`, { username: user.username, password: user.password }, "post");
     JoblyApi.token = res.token;
-    return res.token;
+    return res;
   }
 
   static logout() {
+    console.log("logged out!")
     JoblyApi.token = null;
+  }
+
+  //User Routes
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    return res;
   }
 }
 
