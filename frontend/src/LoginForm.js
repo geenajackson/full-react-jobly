@@ -1,15 +1,25 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 
 function LoginForm({ loginUser }) {
     const INITIAL_STATE = { username: "", password: "" }
     const [formData, setFormData] = useState(INITIAL_STATE);
+    const [errors, setErrors] = useState(null);
+    const history = useHistory();
 
-    const handleSubmit = evt => {
+    async function handleSubmit(evt) {
         evt.preventDefault();
         console.log(formData)
-        loginUser(formData);
-        setFormData(INITIAL_STATE);
+        let res = await loginUser(formData);
+
+        if (res) {
+            setErrors(res.map(error => (
+                <li key={error}>{error}</li>
+            )));
+            setFormData(INITIAL_STATE);
+        }
+        else history.push("/");
     };
 
     const handleChange = evt => {
@@ -23,6 +33,7 @@ function LoginForm({ loginUser }) {
     return (
         <div className="LoginForm">
             <h1>Login Here!</h1>
+            {errors ? <p>{errors}</p> : ""}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username: </label>
                 <input

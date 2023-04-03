@@ -1,15 +1,25 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 
 
 function SignupForm({ registerUser }) {
     const INITIAL_STATE = { username: "", password: "", firstName: "", lastName: "", email: "" }
     const [formData, setFormData] = useState(INITIAL_STATE);
+    const [errors, setErrors] = useState(null);
+    const history = useHistory();
 
-    const handleSubmit = evt => {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        console.log("submitted!")
-        registerUser(formData);
-        setFormData(INITIAL_STATE);
+        let res = await registerUser(formData);
+
+        if (res) {
+            setErrors(res.map(error => (
+                <li key={error}>{error}</li>
+            )));
+            setFormData(INITIAL_STATE);
+        }
+        else history.push("/");
     };
 
     const handleChange = evt => {
@@ -23,6 +33,7 @@ function SignupForm({ registerUser }) {
     return (
         <div className="SignupForm">
             <h1>Register Here!</h1>
+            {errors ? <p>{errors}</p> : ""}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username: </label>
                 <input
