@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Redirect } from "react-router-dom";
+
+import UserContext from "./userContext";
+
 
 function Company({ name, description, numEmployees, logoUrl }) {
+    const user = useContext(UserContext)
+
+    if (!user) {
+        return <Redirect to="/" />
+    }
     return (
         <div>
             <h2>{name}</h2>

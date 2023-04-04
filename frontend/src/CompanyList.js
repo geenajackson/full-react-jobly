@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router-dom";
 
 import JoblyApi from "./api"
 import SearchBar from "./SearchBar";
 import Company from "./Company"
 
+import UserContext from "./userContext";
+
+
 function CompanyList() {
     const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState([]);
+    const user = useContext(UserContext)
 
     async function fetchData(query = undefined) {
         setIsLoading(true);
@@ -26,6 +31,10 @@ function CompanyList() {
         return <p>Loading ...</p>;
     }
 
+    if (!user) {
+        return <Redirect to="/" />
+    }
+
     return (
         <div>
             <SearchBar fetchData={fetchData} />
@@ -38,6 +47,7 @@ function CompanyList() {
                     logoUrl={company.logoUrl}
                 ></Company>
             ))}
+
         </div>
     )
 }

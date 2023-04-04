@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router-dom";
 
+import UserContext from "./userContext";
 import JoblyApi from "./api"
 import SearchBar from "./SearchBar";
 import Job from "./Job"
@@ -7,6 +9,7 @@ import Job from "./Job"
 function JobList() {
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
+    const user = useContext(UserContext)
 
     async function fetchData(query = undefined) {
         setIsLoading(true);
@@ -24,6 +27,10 @@ function JobList() {
 
     if (isLoading) {
         return <p>Loading ...</p>;
+    }
+
+    if (!user) {
+        return <Redirect to="/" />
     }
 
     return (
