@@ -6,7 +6,7 @@ function Login() {
     return (
         <div>
             <p>Signup or Login to utilize Jobly!</p>
-            <Link to="/login/form">Login</Link>
+            <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
         </div>
     )
