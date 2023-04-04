@@ -5,7 +5,6 @@ import CompanyList from "./CompanyList"
 import Company from "./Company"
 import JobList from "./JobList"
 import Job from "./Job"
-import Login from "./Login"
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm"
 import Profile from "./Profile"
@@ -28,11 +27,8 @@ function Routes({ loginUser, logoutUser, registerUser }) {
             <Route path="/jobs/:job">
                 <Job />
             </Route>
-            <Route path="/login/form">
-                <LoginForm loginUser={loginUser} />
-            </Route>
             <Route path="/login">
-                <Login />
+                <LoginForm loginUser={loginUser} />
             </Route>
             <Route exact path="/signup">
                 <SignupForm registerUser={registerUser} />
