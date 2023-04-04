@@ -18,11 +18,12 @@ function NavBar() {
             <NavLink exact to="/jobs">
                 Jobs
             </NavLink>
-            <NavLink exact to="/profile">
-                Profile
-            </NavLink>
+
             {user ?
-                <NavLink exact to="/logout">Logout</NavLink> :
+                [<NavLink key="profile" exact to="/profile">
+                    Profile
+                </NavLink>,
+                <NavLink key="logout" exact to="/logout">Logout</NavLink>] :
                 [<NavLink key="login" exact to="/login">
                     Login
                 </NavLink>,
