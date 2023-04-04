@@ -1,22 +1,53 @@
-import React, { useState } from "react";
-import Routes from "./Routes"
+import React, { useEffect, useState } from "react";
+import decode from "jwt-decode"
 import './App.css';
 
+import Routes from "./Routes"
 import UserContext from "./userContext";
 import TokenContext from "./tokenContext";
 import Login from "./Login";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
+import useLocalStorage from "./useLocalStorage";
 
 
 function App() {
-  const [user, setUser] = useState("");
-  const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useLocalStorage("token");
+
+
+  useEffect(
+    function loadUser() {
+      async function getUser() {
+        setIsLoading(true);
+        if (token) {
+          try {
+            let { username } = decode(token);
+            JoblyApi.token = token;
+            let res = await JoblyApi.getUser(username);
+            setUser(res.user);
+          }
+          catch (e) {
+            console.log(e)
+          }
+        }
+        else {
+          setUser(null);
+        };
+      }
+      console.log("in useEffect")
+      getUser()
+      setIsLoading(false);
+    }, [token]);
+
+
 
   async function loginUser(login) {
     try {
       let res = await JoblyApi.getToken(login);
-      setToken(res);
+      setToken(res.token);
+      localStorage.setItem("token", res.token);
       setUser(login);
     }
     catch (e) {
@@ -28,7 +59,8 @@ function App() {
   async function registerUser(login) {
     try {
       let res = await JoblyApi.register(login);
-      setToken(res);
+      setToken(res.token);
+      localStorage.setItem("token", res.token);
       setUser(login);
     }
     catch (e) {
@@ -38,7 +70,12 @@ function App() {
 
   function logoutUser() {
     JoblyApi.logout();
+    localStorage.removeItem("token");
     setUser(null);
+  }
+
+  if (isLoading) {
+    return <p>Loading ...</p>;
   }
 
   return (
