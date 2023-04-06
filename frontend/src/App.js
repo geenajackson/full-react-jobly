@@ -9,11 +9,13 @@ import Login from "./Login";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
 import useLocalStorage from "./useLocalStorage";
+import ApplicationsContext from "./ApplicationsContext";
 
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [applications, setApplications] = useState([]);
   const [token, setToken] = useLocalStorage("token");
 
 
@@ -27,6 +29,7 @@ function App() {
             JoblyApi.token = token;
             let res = await JoblyApi.getUser(username);
             setUser(res.user);
+            setApplications(res.user.applications)
           }
           catch (e) {
             console.log(e)
@@ -36,7 +39,6 @@ function App() {
           setUser(null);
         };
       }
-      console.log("in useEffect")
       getUser()
       setIsLoading(false);
     }, [token]);
@@ -80,13 +82,15 @@ function App() {
 
   return (
     <div className="App">
-      {user ? <p>Hello, {user.username}!</p> :
+      {user ? <p>Hello, {user.firstName}!</p> :
         <Login />}
       <UserContext.Provider value={user}>
-        <TokenContext.Provider value={token}>
-          <NavBar />
-          <Routes loginUser={loginUser} logoutUser={logoutUser} registerUser={registerUser} />
-        </TokenContext.Provider>
+        <ApplicationsContext.Provider value={applications}>
+          <TokenContext.Provider value={token}>
+            <NavBar />
+            <Routes loginUser={loginUser} logoutUser={logoutUser} registerUser={registerUser} />
+          </TokenContext.Provider>
+        </ApplicationsContext.Provider>
       </UserContext.Provider>
     </div>
   );
