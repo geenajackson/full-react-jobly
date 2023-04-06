@@ -1,11 +1,23 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 
+import ProfileForm from "./ProfileForm";
 import UserContext from "./userContext";
+import JoblyApi from "./api";
 
 function Profile() {
     //no need to destructure with useContext
     const user = useContext(UserContext);
+
+    async function updateUser(userData) {
+        try {
+            let res = await JoblyApi.updateUser(user.username, userData);
+            console.log(res);
+        }
+        catch (e) {
+            return e;
+        }
+    };
 
     if (!user) {
         return <Redirect to="/" />
@@ -13,8 +25,7 @@ function Profile() {
 
     return (
         <div>
-            <h1>Hello!</h1>
-            <p>{user.username}</p>
+            <ProfileForm updateUser={updateUser} />
         </div>
     )
 }
