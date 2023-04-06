@@ -5,11 +5,13 @@ import UserContext from "./userContext";
 import JoblyApi from "./api"
 import SearchBar from "./SearchBar";
 import Job from "./Job"
+import ApplicationsContext from "./ApplicationsContext";
 
 function JobList() {
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
     const user = useContext(UserContext)
+    const applications = useContext(ApplicationsContext)
 
     async function fetchData(query = undefined) {
         setIsLoading(true);
@@ -20,6 +22,19 @@ function JobList() {
         };
         getJobs();
     };
+
+    async function applyUser(jobId) {
+        try {
+            let res = await JoblyApi.applyUser(user.username, jobId);
+            console.log(res)
+            window.location.reload();
+
+        }
+        catch (e) {
+            return e;
+        }
+
+    }
 
     useEffect(() => {
         fetchData();
@@ -39,10 +54,13 @@ function JobList() {
             {jobs.map(job => (
                 <Job
                     key={job.id}
+                    jobId={job.id}
                     title={job.title}
                     salary={job.salary}
                     equity={job.equity}
                     companyName={job.companyName}
+                    applyUser={applyUser}
+                    applications={applications}
                 ></Job>
             ))}
         </div>
