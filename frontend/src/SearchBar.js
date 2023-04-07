@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "reactstrap";
 
 function SearchBar({ fetchData }) {
     const [search, setSearch] = useState("");
@@ -14,7 +15,7 @@ function SearchBar({ fetchData }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="search">Search: </label>
+            <label htmlFor="search"></label>
             <input
                 id="search"
                 name="search"
@@ -22,7 +23,7 @@ function SearchBar({ fetchData }) {
                 placeholder="Search"
                 onChange={handleChange}>
             </input>
-            <button type="submit">Search!</button>
+            <Button size="sm" type="submit">Search!</Button>
         </form>
     )
 }
