@@ -41,6 +41,7 @@ function CompanyList() {
             {companies.map(company => (
                 <Company
                     key={company.handle}
+                    handle={company.handle}
                     name={company.name}
                     description={company.description}
                     numEmployees={company.numEmployees}
