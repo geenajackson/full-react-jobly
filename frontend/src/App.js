@@ -5,7 +5,6 @@ import './App.css';
 import Routes from "./Routes"
 import UserContext from "./userContext";
 import TokenContext from "./tokenContext";
-import Login from "./Login";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
 import useLocalStorage from "./useLocalStorage";
@@ -82,8 +81,6 @@ function App() {
 
   return (
     <div className="App">
-      {user ? <p>Hello, {user.firstName}!</p> :
-        <Login />}
       <UserContext.Provider value={user}>
         <ApplicationsContext.Provider value={applications}>
           <TokenContext.Provider value={token}>
