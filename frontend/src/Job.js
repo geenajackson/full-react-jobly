@@ -1,5 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { Card, CardBody, CardTitle, ListGroup, ListGroupItem, Button } from "reactstrap"
+
+import "./Card.css"
+
 
 function Job({ jobId, title, salary, equity, companyName, applyUser, applications }) {
     const history = useHistory();
@@ -11,16 +15,18 @@ function Job({ jobId, title, salary, equity, companyName, applyUser, application
     }
 
     return (
-        <div>
-            <h2>{title}</h2>
-            <ul>
-                <li>Company: {companyName}</li>
-                <li>Salary: {salary}</li>
-                {equity ? <li>Equity: {equity}</li> : ""}
-            </ul>
-            {applications.includes(jobId) ? <button>Applied!</button> :
-                <button onClick={handleSubmit}>Apply!</button>}
-        </div>
+        <Card color="light" className="Card">
+            <CardBody>
+                <CardTitle tag="h3">{title}</CardTitle>
+                <ListGroup>
+                    <ListGroupItem>Company: {companyName}</ListGroupItem>
+                    <ListGroupItem>Salary: {salary}</ListGroupItem>
+                    {equity ? <ListGroupItem>Equity: {equity}</ListGroupItem> : ""}
+                </ListGroup>
+                {applications.includes(jobId) ? <Button disabled>Applied!</Button> :
+                    <Button color="primary" onClick={handleSubmit}>Apply!</Button>}
+            </CardBody>
+        </Card>
     )
 }
 
