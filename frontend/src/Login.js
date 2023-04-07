@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { Button } from "reactstrap";
 
 function Login() {
     return (
         <div>
             <p>Signup or Login to utilize Jobly!</p>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Button color="secondary"><Link to="/login">Login</Link></Button>
+            {" "}
+            <Button><Link to="/signup">Sign Up</Link></Button>
         </div>
     )
 }
