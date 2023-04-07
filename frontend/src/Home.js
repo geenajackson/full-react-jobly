@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "./userContext";
+import Login from "./Login";
+import { Card, CardBody } from "reactstrap";
+
 
 function Home() {
+    const user = useContext(UserContext)
+
     return (
-        <div></div>
+        <Card color="light">
+            <CardBody>
+                {user ? <p>Hello, {user.firstName}!</p> :
+                    <Login />}
+            </CardBody>
+        </Card>
     )
 }
 
