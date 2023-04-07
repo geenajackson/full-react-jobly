@@ -1,0 +1,7 @@
+.Card a {
+    color: gray
+}
+
+.Card a:hover {
+    color: lightgray
+}
