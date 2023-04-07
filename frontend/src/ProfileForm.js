@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 import UserContext from "./userContext";
 
@@ -34,45 +35,46 @@ function ProfileForm({ updateUser }) {
     };
 
     return (
-        <div className="LoginForm">
-            <h1>Update profile for {user.username}</h1>
-            {errors ? <p>{errors}</p> : ""}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="firstName">First Name: </label>
-                <input
+        <Form onSubmit={handleSubmit} className="LoginForm">
+            <FormGroup><h1>Update profile for {user.username}</h1>
+                {errors ? <p>{errors}</p> : ""}
+
+                <Label htmlFor="firstName">First Name: </Label>
+                <Input
                     id="firstName"
                     name="firstName"
                     type="text"
                     value={formData.firstName}
                     onChange={handleChange}
-                ></input>
-                <label htmlFor="lastName">Last Name: </label>
-                <input
+                ></Input>
+                <Label htmlFor="lastName">Last Name: </Label>
+                <Input
                     id="lastName"
                     name="lastName"
                     type="text"
                     value={formData.lastName}
                     onChange={handleChange}
-                ></input>
-                <label htmlFor="password">Password: </label>
-                <input
+                ></Input>
+                <Label htmlFor="password">Password: </Label>
+                <Input
                     id="password"
                     name="password"
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
-                ></input>
-                <label htmlFor="email">Email: </label>
-                <input
+                ></Input>
+                <Label htmlFor="email">Email: </Label>
+                <Input
                     id="email"
                     name="email"
                     type="text"
                     value={formData.email}
                     onChange={handleChange}
-                ></input>
-                <button type="submit">Update!</button>
-            </form>
-        </div>
+                ></Input>
+                <Button type="submit">Update!</Button>
+            </FormGroup>
+
+        </Form>
     )
 }
 

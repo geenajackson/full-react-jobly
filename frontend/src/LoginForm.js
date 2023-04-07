@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 
 function LoginForm({ loginUser }) {
@@ -34,25 +35,27 @@ function LoginForm({ loginUser }) {
         <div className="LoginForm">
             <h1>Login Here!</h1>
             {errors ? <p>{errors}</p> : ""}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username: </label>
-                <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    value={formData.username}
-                    onChange={handleChange}
-                ></input>
-                <label htmlFor="password">Password: </label>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                ></input>
-                <button type="submit">Login!</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <FormGroup>
+                    <Label htmlFor="username">Username: </Label>
+                    <Input
+                        id="username"
+                        name="username"
+                        type="text"
+                        value={formData.username}
+                        onChange={handleChange}
+                    ></Input>
+                    <Label htmlFor="password">Password: </Label>
+                    <Input
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    ></Input>
+                    <Button type="submit">Login!</Button>
+                </FormGroup>
+            </Form>
         </div>
     )
 }

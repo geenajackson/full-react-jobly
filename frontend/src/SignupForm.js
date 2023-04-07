@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 
 function SignupForm({ registerUser }) {
@@ -34,49 +34,51 @@ function SignupForm({ registerUser }) {
         <div className="SignupForm">
             <h1>Register Here!</h1>
             {errors ? <p>{errors}</p> : ""}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username: </label>
-                <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    value={formData.username}
-                    onChange={handleChange}
-                ></input>
-                <label htmlFor="password">Password: </label>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                ></input>
-                <label htmlFor="firstName">First Name: </label>
-                <input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                ></input>
-                <label htmlFor="lastName">Last Name: </label>
-                <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                ></input>
-                <label htmlFor="email">Email: </label>
-                <input
-                    id="email"
-                    name="email"
-                    type="text"
-                    value={formData.email}
-                    onChange={handleChange}
-                ></input>
-                <button type="submit">Register!</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <FormGroup>
+                    <Label htmlFor="username">Username: </Label>
+                    <Input
+                        id="username"
+                        name="username"
+                        type="text"
+                        value={formData.username}
+                        onChange={handleChange}
+                    ></Input>
+                    <Label htmlFor="password">Password: </Label>
+                    <Input
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    ></Input>
+                    <Label htmlFor="firstName">First Name: </Label>
+                    <Input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                    ></Input>
+                    <Label htmlFor="lastName">Last Name: </Label>
+                    <Input
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                    ></Input>
+                    <Label htmlFor="email">Email: </Label>
+                    <Input
+                        id="email"
+                        name="email"
+                        type="text"
+                        value={formData.email}
+                        onChange={handleChange}
+                    ></Input>
+                    <Button type="submit">Register!</Button>
+                </FormGroup>
+            </Form>
         </div>
     )
 }
